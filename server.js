@@ -104,13 +104,18 @@ app.all('/api/manafith-proxy', async (req, res) => {
         // 3. البلدان القادم منها
         if (lowerTarget.includes('/countries') || lowerTarget.includes('/lookup/countries')) {
             return res.json(wrap([
-                { "id": 1, "nameArabic": "المملكة العربية السعودية", "nameEnglish": "Saudi Arabia", "nameAr": "المملكة العربية السعودية", "nameEn": "Saudi Arabia", "code": "SA", "phoneCode": "966" },
-                { "id": 2, "nameArabic": "مملكة البحرين", "nameEnglish": "Bahrain", "nameAr": "مملكة البحرين", "nameEn": "Bahrain", "code": "BH", "phoneCode": "973" },
-                { "id": 3, "nameArabic": "دولة الكويت", "nameEnglish": "Kuwait", "nameAr": "دولة الكويت", "nameEn": "Kuwait", "code": "KW", "phoneCode": "965" },
-                { "id": 4, "nameArabic": "دولة قطر", "nameEnglish": "Qatar", "nameAr": "دولة قطر", "nameEn": "Qatar", "code": "QA", "phoneCode": "974" },
-                { "id": 5, "nameArabic": "دولة الإمارات العربية المتحدة", "nameEnglish": "United Arab Emirates", "nameAr": "دولة الإمارات العربية المتحدة", "nameEn": "United Arab Emirates", "code": "AE", "phoneCode": "971" },
+                { "id": 1, "nameArabic": "دولة الإمارات العربية المتحدة", "nameEnglish": "United Arab Emirates", "nameAr": "دولة الإمارات العربية المتحدة", "nameEn": "United Arab Emirates", "code": "AE", "phoneCode": "971" },
+                { "id": 2, "nameArabic": "دولة الكويت", "nameEnglish": "Kuwait", "nameAr": "دولة الكويت", "nameEn": "Kuwait", "code": "KW", "phoneCode": "965" },
+                { "id": 3, "nameArabic": "دولة قطر", "nameEnglish": "Qatar", "nameAr": "دولة قطر", "nameEn": "Qatar", "code": "QA", "phoneCode": "974" },
+                { "id": 4, "nameArabic": "مملكة البحرين", "nameEnglish": "Bahrain", "nameAr": "مملكة البحرين", "nameEn": "Bahrain", "code": "BH", "phoneCode": "973" },
+                { "id": 5, "nameArabic": "سلطنة عمان", "nameEnglish": "Oman", "nameAr": "سلطنة عمان", "nameEn": "Oman", "code": "OM", "phoneCode": "968" },
                 { "id": 6, "nameArabic": "الأردن", "nameEnglish": "Jordan", "nameAr": "الأردن", "nameEn": "Jordan", "code": "JO", "phoneCode": "962" },
-                { "id": 7, "nameArabic": "سلطنة عمان", "nameEnglish": "Oman", "nameAr": "سلطنة عمان", "nameEn": "Oman", "code": "OM", "phoneCode": "968" }
+                { "id": 7, "nameArabic": "العراق", "nameEnglish": "Iraq", "nameAr": "العراق", "nameEn": "Iraq", "code": "IQ", "phoneCode": "964" },
+                { "id": 8, "nameArabic": "سوريا", "nameEnglish": "Syria", "nameAr": "سوريا", "nameEn": "Syria", "code": "SY", "phoneCode": "963" },
+                { "id": 9, "nameArabic": "لبنان", "nameEnglish": "Lebanon", "nameAr": "لبنان", "nameEn": "Lebanon", "code": "LB", "phoneCode": "961" },
+                { "id": 10, "nameArabic": "اليمن", "nameEnglish": "Yemen", "nameAr": "اليمن", "nameEn": "Yemen", "code": "YE", "phoneCode": "967" },
+                { "id": 11, "nameArabic": "مصر", "nameEnglish": "Egypt", "nameAr": "مصر", "nameEn": "Egypt", "code": "EG", "phoneCode": "20" },
+                { "id": 12, "nameArabic": "تونس", "nameEnglish": "Tunisia", "nameAr": "تونس", "nameEn": "Tunisia", "code": "TN", "phoneCode": "216" }
             ]));
         }
 
@@ -134,12 +139,18 @@ app.all('/api/manafith-proxy', async (req, res) => {
         if (lowerTarget.includes('/nationalities') || lowerTarget.includes('/lookup/nationalities')) {
             return res.json(wrap([
                 { "id": 1, "nameArabic": "سعودي", "nameEnglish": "Saudi", "nameAr": "سعودي", "nameEn": "Saudi", "code": "SA" },
-                { "id": 2, "nameArabic": "بحريني", "nameEnglish": "Bahraini", "nameAr": "بحريني", "nameEn": "Bahraini", "code": "BH" },
+                { "id": 2, "nameArabic": "إماراتي", "nameEnglish": "Emirati", "nameAr": "إماراتي", "nameEn": "Emirati", "code": "AE" },
                 { "id": 3, "nameArabic": "كويتي", "nameEnglish": "Kuwaiti", "nameAr": "كويتي", "nameEn": "Kuwaiti", "code": "KW" },
                 { "id": 4, "nameArabic": "قطري", "nameEnglish": "Qatari", "nameAr": "قطري", "nameEn": "Qatari", "code": "QA" },
-                { "id": 5, "nameArabic": "إماراتي", "nameEnglish": "Emirati", "nameAr": "إماراتي", "nameEn": "Emirati", "code": "AE" },
-                { "id": 6, "nameArabic": "أردني", "nameEnglish": "Jordanian", "nameAr": "أردني", "nameEn": "Jordanian", "code": "JO" },
-                { "id": 7, "nameArabic": "عماني", "nameEnglish": "Omani", "nameAr": "عماني", "nameEn": "Omani", "code": "OM" }
+                { "id": 5, "nameArabic": "بحريني", "nameEnglish": "Bahraini", "nameAr": "بحريني", "nameEn": "Bahraini", "code": "BH" },
+                { "id": 6, "nameArabic": "عماني", "nameEnglish": "Omani", "nameAr": "عماني", "nameEn": "Omani", "code": "OM" },
+                { "id": 7, "nameArabic": "أردني", "nameEnglish": "Jordanian", "nameAr": "أردني", "nameEn": "Jordanian", "code": "JO" },
+                { "id": 8, "nameArabic": "عراقي", "nameEnglish": "Iraqi", "nameAr": "عراقي", "nameEn": "Iraqi", "code": "IQ" },
+                { "id": 9, "nameArabic": "سوري", "nameEnglish": "Syrian", "nameAr": "سوري", "nameEn": "Syrian", "code": "SY" },
+                { "id": 10, "nameArabic": "لبناني", "nameEnglish": "Lebanese", "nameAr": "لبناني", "nameEn": "Lebanese", "code": "LB" },
+                { "id": 11, "nameArabic": "يمني", "nameEnglish": "Yemeni", "nameAr": "يمني", "nameEn": "Yemeni", "code": "YE" },
+                { "id": 12, "nameArabic": "مصري", "nameEnglish": "Egyptian", "nameAr": "مصري", "nameEn": "Egyptian", "code": "EG" },
+                { "id": 13, "nameArabic": "تونسي", "nameEnglish": "Tunisian", "nameAr": "تونسي", "nameEn": "Tunisian", "code": "TN" }
             ]));
         }
 
