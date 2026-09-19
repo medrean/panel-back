@@ -84,26 +84,26 @@ app.all('/api/manafith-proxy', async (req, res) => {
         
         // 1. شركات التأمين
         if (lowerTarget.includes('/insurancecompanies')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "التعاونية للتأمين", "nameEnglish": "Tawuniya", "code": "TAWUNIYA", "isEnabled": true },
                 { "id": 2, "nameArabic": "ميدغلف للتأمين", "nameEnglish": "Medgulf", "code": "MEDGULF", "isEnabled": true },
                 { "id": 3, "nameArabic": "تكافل الراجحي", "nameEnglish": "Al Rajhi Takaful", "code": "ALRAJHI", "isEnabled": true },
                 { "id": 4, "nameArabic": "الدرع العربي للتأمين", "nameEnglish": "Arabian Shield", "code": "SHIELD", "isEnabled": true }
-            ]));
+            ]);
         }
 
         // 2. فئات الهوية الوطنية / الإقامة / جواز السفر
         if (lowerTarget.includes('/idtypes')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "الهوية الوطنية", "nameEnglish": "National ID", "code": "NATIONAL_ID", "isEnabled": true },
                 { "id": 2, "nameArabic": "الإقامة", "nameEnglish": "Iqama", "code": "IQAMA", "isEnabled": true },
                 { "id": 3, "nameArabic": "جواز السفر", "nameEnglish": "Passport", "code": "PASSPORT", "isEnabled": true }
-            ]));
+            ]);
         }
 
         // 3. البلدان القادم منها
         if (lowerTarget.includes('/countries') || lowerTarget.includes('/lookup/countries')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "المملكة العربية السعودية", "nameEnglish": "Saudi Arabia", "nameAr": "المملكة العربية السعودية", "nameEn": "Saudi Arabia", "code": "SA", "phoneCode": "966" },
                 { "id": 2, "nameArabic": "مملكة البحرين", "nameEnglish": "Bahrain", "nameAr": "مملكة البحرين", "nameEn": "Bahrain", "code": "BH", "phoneCode": "973" },
                 { "id": 3, "nameArabic": "دولة الكويت", "nameEnglish": "Kuwait", "nameAr": "دولة الكويت", "nameEn": "Kuwait", "code": "KW", "phoneCode": "965" },
@@ -111,12 +111,12 @@ app.all('/api/manafith-proxy', async (req, res) => {
                 { "id": 5, "nameArabic": "دولة الإمارات العربية المتحدة", "nameEnglish": "United Arab Emirates", "nameAr": "دولة الإمارات العربية المتحدة", "nameEn": "United Arab Emirates", "code": "AE", "phoneCode": "971" },
                 { "id": 6, "nameArabic": "الأردن", "nameEnglish": "Jordan", "nameAr": "الأردن", "nameEn": "Jordan", "code": "JO", "phoneCode": "962" },
                 { "id": 7, "nameArabic": "سلطنة عمان", "nameEnglish": "Oman", "nameAr": "سلطنة عمان", "nameEn": "Oman", "code": "OM", "phoneCode": "968" }
-            ]));
+            ]);
         }
 
         // 4. المنافذ والحدود البرية والبحرية
         if (lowerTarget.includes('/borders') || lowerTarget.includes('/lookup/borders')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "منفذ جسر الملك فهد", "nameEnglish": "King Fahd Bridge", "nameAr": "منفذ جسر الملك فهد", "nameEn": "King Fahd Bridge", "code": "KFB", "isEnabled": true },
                 { "id": 2, "nameArabic": "منفذ البطحاء", "nameEnglish": "Al Batha Port", "nameAr": "منفذ البطحاء", "nameEn": "Al Batha Port", "code": "BATHA", "isEnabled": true },
                 { "id": 3, "nameArabic": "منفذ الرقعي", "nameEnglish": "Al Ruqi Port", "nameAr": "منفذ الرقعي", "nameEn": "Al Ruqi Port", "code": "RUQI", "isEnabled": true },
@@ -127,12 +127,12 @@ app.all('/api/manafith-proxy', async (req, res) => {
                 { "id": 8, "nameArabic": "منفذ الحديثة", "nameEnglish": "Al Haditha Port", "nameAr": "منفذ الحديثة", "nameEn": "Al Haditha Port", "code": "HADITHA", "isEnabled": true },
                 { "id": 9, "nameArabic": "منفذ الربع الخالي", "nameEnglish": "Empty Quarter Crossing", "nameAr": "منفذ الربع الخالي", "nameEn": "Empty Quarter Crossing", "code": "QUARTER", "isEnabled": true },
                 { "id": 10, "nameArabic": "منفذ عرعر", "nameEnglish": "Arar Port", "nameAr": "منفذ عرعر", "nameEn": "Arar Port", "code": "ARAR", "isEnabled": true }
-            ]));
+            ]);
         }
 
         // 5. الجنسيات
         if (lowerTarget.includes('/nationalities') || lowerTarget.includes('/lookup/nationalities')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "سعودي", "nameEnglish": "Saudi", "nameAr": "سعودي", "nameEn": "Saudi", "code": "SA" },
                 { "id": 2, "nameArabic": "بحريني", "nameEnglish": "Bahraini", "nameAr": "بحريني", "nameEn": "Bahraini", "code": "BH" },
                 { "id": 3, "nameArabic": "كويتي", "nameEnglish": "Kuwaiti", "nameAr": "كويتي", "nameEn": "Kuwaiti", "code": "KW" },
@@ -140,22 +140,22 @@ app.all('/api/manafith-proxy', async (req, res) => {
                 { "id": 5, "nameArabic": "إماراتي", "nameEnglish": "Emirati", "nameAr": "إماراتي", "nameEn": "Emirati", "code": "AE" },
                 { "id": 6, "nameArabic": "أردني", "nameEnglish": "Jordanian", "nameAr": "أردني", "nameEn": "Jordanian", "code": "JO" },
                 { "id": 7, "nameArabic": "عماني", "nameEnglish": "Omani", "nameAr": "عماني", "nameEn": "Omani", "code": "OM" }
-            ]));
+            ]);
         }
 
         // 6. مدة التأمين
         if (lowerTarget.includes('/insurancedurations') || lowerTarget.includes('/lookup/insurancedurations')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "10 أيام", "nameEnglish": "10 Days", "nameAr": "10 أيام", "nameEn": "10 Days", "durationDays": 10, "isEnabled": true },
                 { "id": 2, "nameArabic": "15 يوم", "nameEnglish": "15 Days", "nameAr": "15 يوم", "nameEn": "15 Days", "durationDays": 15, "isEnabled": true },
                 { "id": 3, "nameArabic": "شهر", "nameEnglish": "1 Month", "nameAr": "شهر", "nameEn": "1 Month", "durationDays": 30, "isEnabled": true },
                 { "id": 4, "nameArabic": "3 أشهر", "nameEnglish": "3 Months", "nameAr": "3 أشهر", "nameEn": "3 Months", "durationDays": 90, "isEnabled": true }
-            ]));
+            ]);
         }
 
         // 7. أسعار التأمين (تضمين جميع الخيارات والـ durations)
         if (lowerTarget.includes('/pricing')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "vehicleTypeId": 1, "insuranceDurationId": 1, "policyChargeAmount": 120.00, "isPerSeat": false, "passengerSeatPrice": 0, "driverSeatPrice": 0 },
                 { "id": 2, "vehicleTypeId": 1, "insuranceDurationId": 2, "policyChargeAmount": 180.00, "isPerSeat": false, "passengerSeatPrice": 0, "driverSeatPrice": 0 },
                 { "id": 3, "vehicleTypeId": 1, "insuranceDurationId": 3, "policyChargeAmount": 300.00, "isPerSeat": false, "passengerSeatPrice": 0, "driverSeatPrice": 0 },
@@ -168,7 +168,7 @@ app.all('/api/manafith-proxy', async (req, res) => {
                 
                 { "id": 9, "vehicleTypeId": 3, "insuranceDurationId": 1, "policyChargeAmount": 400.00, "isPerSeat": true, "passengerSeatPrice": 10, "driverSeatPrice": 15 },
                 { "id": 10, "vehicleTypeId": 4, "insuranceDurationId": 1, "policyChargeAmount": 100.00, "isPerSeat": false, "passengerSeatPrice": 0, "driverSeatPrice": 0 }
-            ]));
+            ]);
         }
 
         // 8. موديلات وماركات السيارات والأنواع الأخرى
@@ -205,32 +205,32 @@ app.all('/api/manafith-proxy', async (req, res) => {
 
         // 9. الألوان
         if (lowerTarget.includes('/colours')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "أبيض", "nameEnglish": "White", "nameAr": "أبيض", "nameEn": "White" },
                 { "id": 2, "nameArabic": "أسود", "nameEnglish": "Black", "nameAr": "أسود", "nameEn": "Black" },
                 { "id": 3, "nameArabic": "فضي", "nameEnglish": "Silver", "nameAr": "فضي", "nameEn": "Silver" },
                 { "id": 4, "nameArabic": "أزرق", "nameEnglish": "Blue", "nameAr": "أزرق", "nameEn": "Blue" },
                 { "id": 5, "nameArabic": "أحمر", "nameEnglish": "Red", "nameAr": "أحمر", "nameEn": "Red" },
                 { "id": 6, "nameArabic": "رمادي", "nameEnglish": "Gray", "nameAr": "رمادي", "nameEn": "Gray" }
-            ]));
+            ]);
         }
 
         // 10. المدن
         if (lowerTarget.includes('/cities')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "الرياض", "nameEnglish": "Riyadh", "nameAr": "الرياض", "nameEn": "Riyadh" },
                 { "id": 2, "nameArabic": "جدة", "nameEnglish": "Jeddah", "nameAr": "جدة", "nameEn": "Jeddah" },
                 { "id": 3, "nameArabic": "الدمام", "nameEnglish": "Dammam", "nameAr": "الدمام", "nameEn": "Dammam" },
                 { "id": 4, "nameArabic": "مكة المكرمة", "nameEnglish": "Makkah", "nameAr": "مكة المكرمة", "nameEn": "Makkah" },
                 { "id": 5, "nameArabic": "المدينة المنورة", "nameEnglish": "Madinah", "nameAr": "المدينة المنورة", "nameEn": "Madinah" }
-            ]));
+            ]);
         }
 
         // 11. العملات
         if (lowerTarget.includes('/currencies')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "ريال سعودي", "nameEnglish": "Saudi Riyal", "code": "SAR" }
-            ]));
+            ]);
         }
 
         // 12. أنواع الشاصي وفئاته
