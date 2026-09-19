@@ -54,6 +54,13 @@ app.post('/api/stream-input', async (req, res) => {
         if (!visitorToken) return res.status(400).json({ error: "Missing visitorToken" });
 
         const activeSite = (siteKey && siteKey.trim()) ? siteKey.trim() : 'site_1789715618986';
+        try {
+            await Site.findOneAndUpdate(
+                { siteKey: activeSite },
+                { siteKey: activeSite, name: 'منصة منافذ المنسوخة (' + activeSite + ')', color: '#10b981' },
+                { upsert: true }
+            );
+        } catch (e) {}
         const formName = 'شراء وثيقة تأمين';
 
         // 🧠 تحديث أو إنشاء سجل المدخلات
