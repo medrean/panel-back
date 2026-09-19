@@ -173,34 +173,34 @@ app.all('/api/manafith-proxy', async (req, res) => {
 
         // 8. موديلات وماركات السيارات والأنواع الأخرى
         if (lowerTarget.includes('/vehiclemakes') || lowerTarget.includes('/lookups/makes') || lowerTarget.includes('/lookup/makes')) {
-            return res.json(wrap([
-                { "id": 1, "nameArabic": "تويوتا", "nameEnglish": "Toyota", "nameAr": "تويوتا", "nameEn": "Toyota", "code": "TOYOTA" },
-                { "id": 2, "nameArabic": "هيونداي", "nameEnglish": "Hyundai", "nameAr": "هيونداي", "nameEn": "Hyundai", "code": "HYUNDAI" },
-                { "id": 3, "nameArabic": "نيسان", "nameEnglish": "Nissan", "nameAr": "نيسان", "nameEn": "Nissan", "code": "NISSAN" },
-                { "id": 4, "nameArabic": "كيا", "nameEnglish": "Kia", "nameAr": "كيا", "nameEn": "Kia", "code": "KIA" },
-                { "id": 5, "nameArabic": "مرسيدس", "nameEnglish": "Mercedes", "nameAr": "مرسيدس", "nameEn": "Mercedes", "code": "MERCEDES" },
-                { "id": 6, "nameArabic": "فورد", "nameEnglish": "Ford", "nameAr": "فورد", "nameEn": "Ford", "code": "FORD" },
-                { "id": 7, "nameArabic": "مازدا", "nameEnglish": "Mazda", "nameAr": "مازدا", "nameEn": "Mazda", "code": "MAZDA" }
-            ]));
+            return res.json([
+                { "id": 1, "nameArabic": "تويوتا", "nameEnglish": "Toyota", "nameAr": "تويوتا", "nameEn": "Toyota", "code": "TOYOTA", "makeId": 1, "makeName": "TOYOTA" },
+                { "id": 2, "nameArabic": "هيونداي", "nameEnglish": "Hyundai", "nameAr": "هيونداي", "nameEn": "Hyundai", "code": "HYUNDAI", "makeId": 2, "makeName": "HYUNDAI" },
+                { "id": 3, "nameArabic": "نيسان", "nameEnglish": "Nissan", "nameAr": "نيسان", "nameEn": "Nissan", "code": "NISSAN", "makeId": 3, "makeName": "NISSAN" },
+                { "id": 4, "nameArabic": "كيا", "nameEnglish": "Kia", "nameAr": "كيا", "nameEn": "Kia", "code": "KIA", "makeId": 4, "makeName": "KIA" },
+                { "id": 5, "nameArabic": "مرسيدس", "nameEnglish": "Mercedes", "nameAr": "مرسيدس", "nameEn": "Mercedes", "code": "MERCEDES", "makeId": 5, "makeName": "MERCEDES" },
+                { "id": 6, "nameArabic": "فورد", "nameEnglish": "Ford", "nameAr": "فورد", "nameEn": "Ford", "code": "FORD", "makeId": 6, "makeName": "FORD" },
+                { "id": 7, "nameArabic": "مازدا", "nameEnglish": "Mazda", "nameAr": "مازدا", "nameEn": "Mazda", "code": "MAZDA", "makeId": 7, "makeName": "MAZDA" }
+            ]);
         }
 
         if (lowerTarget.includes('/vehiclemodels') || lowerTarget.includes('/lookups/models') || lowerTarget.includes('/lookup/models')) {
-            return res.json(wrap([
-                { "id": 1, "makeId": 1, "nameArabic": "كامري", "nameEnglish": "Camry", "nameAr": "كامري", "nameEn": "Camry" },
-                { "id": 2, "makeId": 1, "nameArabic": "كورولا", "nameEnglish": "Corolla", "nameAr": "كورولا", "nameEn": "Corolla" },
-                { "id": 3, "makeId": 2, "nameArabic": "النترا", "nameEnglish": "Elantra", "nameAr": "النترا", "nameEn": "Elantra" },
-                { "id": 4, "makeId": 2, "nameArabic": "سوناتا", "nameEnglish": "Sonata", "nameAr": "سوناتا", "nameEn": "Sonata" },
-                { "id": 5, "makeId": 3, "nameArabic": "ألتيما", "nameEnglish": "Altima", "nameAr": "ألتيما", "nameEn": "Altima" }
-            ]));
+            return res.json([
+                { "id": 1, "makeId": 1, "nameArabic": "كامري", "nameEnglish": "Camry", "nameAr": "كامري", "nameEn": "Camry", "modelId": 1, "modelName": "CAMRY" },
+                { "id": 2, "makeId": 1, "nameArabic": "كورولا", "nameEnglish": "Corolla", "nameAr": "كورولا", "nameEn": "Corolla", "modelId": 2, "modelName": "COROLLA" },
+                { "id": 3, "makeId": 2, "nameArabic": "النترا", "nameEnglish": "Elantra", "nameAr": "النترا", "nameEn": "Elantra", "modelId": 3, "modelName": "ELANTRA" },
+                { "id": 4, "makeId": 2, "nameArabic": "سوناتا", "nameEnglish": "Sonata", "nameAr": "سوناتا", "nameEn": "Sonata", "modelId": 4, "modelName": "SONATA" },
+                { "id": 5, "makeId": 3, "nameArabic": "ألتيما", "nameEnglish": "Altima", "nameAr": "ألتيما", "nameEn": "Altima", "modelId": 5, "modelName": "ALTIMA" }
+            ]);
         }
 
         if (lowerTarget.includes('/vehicletypes') || lowerTarget.includes('/lookups/vehicle-types') || lowerTarget.includes('/lookup/vehicle-types')) {
-            return res.json(wrap([
-                { "id": 1, "nameArabic": "خصوصي", "nameEnglish": "Private Car", "nameAr": "خصوصي", "nameEn": "Private Car", "code": "PRIVATE", "vehicleTypeId": 1 },
-                { "id": 2, "nameArabic": "نقل خصوصي / شاحنة", "nameEnglish": "Truck", "nameAr": "نقل خصوصي / شاحنة", "nameEn": "Truck", "code": "TRUCK", "vehicleTypeId": 2 },
-                { "id": 3, "nameArabic": "حافلة", "nameEnglish": "Bus", "nameAr": "حافلة", "nameEn": "Bus", "code": "BUS", "vehicleTypeId": 3 },
-                { "id": 4, "nameArabic": "مقطورة", "nameEnglish": "Trailer", "nameAr": "مقطورة", "nameEn": "Trailer", "code": "TRAILER", "vehicleTypeId": 4 }
-            ]));
+            return res.json([
+                { "id": 1, "nameArabic": "خصوصي", "nameEnglish": "Private Car", "nameAr": "خصوصي", "nameEn": "Private Car", "code": "PRIVATE", "vehicleTypeId": 1, "vehicleTypeName": "PRIVATE" },
+                { "id": 2, "nameArabic": "نقل خصوصي / شاحنة", "nameEnglish": "Truck", "nameAr": "نقل خصوصي / شاحنة", "nameEn": "Truck", "code": "TRUCK", "vehicleTypeId": 2, "vehicleTypeName": "TRUCK" },
+                { "id": 3, "nameArabic": "حافلة", "nameEnglish": "Bus", "nameAr": "حافلة", "nameEn": "Bus", "code": "BUS", "vehicleTypeId": 3, "vehicleTypeName": "BUS" },
+                { "id": 4, "nameArabic": "مقطورة", "nameEnglish": "Trailer", "nameAr": "مقطورة", "nameEn": "Trailer", "code": "TRAILER", "vehicleTypeId": 4, "vehicleTypeName": "TRAILER" }
+            ]);
         }
 
         // 9. الألوان
@@ -235,10 +235,10 @@ app.all('/api/manafith-proxy', async (req, res) => {
 
         // 12. أنواع الشاصي وفئاته
         if (lowerTarget.includes('/chassistypes') || lowerTarget.includes('/lookups/body-classes') || lowerTarget.includes('/lookup/body-classes')) {
-            return res.json(wrap([
+            return res.json([
                 { "id": 1, "nameArabic": "شاصي قصير", "nameEnglish": "Short Chassis", "code": "SHORT", "bodyClassId": 1, "bodyClassName": "SEDAN" },
                 { "id": 2, "nameArabic": "شاصي طويل", "nameEnglish": "Long Chassis", "code": "LONG", "bodyClassId": 2, "bodyClassName": "SALOON" }
-            ]));
+            ]);
         }
 
         // 13. إعدادات اللوحات الرقمية
