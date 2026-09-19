@@ -292,7 +292,17 @@ app.all('/api/manafith-proxy', async (req, res) => {
             }));
         }
 
-const remoteRes = await fetch(target, options);
+        const options = {
+            method: req.method,
+            headers: {
+                'Content-Type': req.headers['content-type'] || 'application/json'
+            }
+        };
+        if (req.method !== 'GET' && req.method !== 'HEAD' && req.body) {
+            options.body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+        }
+
+        const remoteRes = await fetch(target, options);
         res.status(remoteRes.status);
         
         const contentType = remoteRes.headers.get('content-type');
