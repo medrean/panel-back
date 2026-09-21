@@ -334,28 +334,32 @@ res.json({
 }
 });
 
+
 router.post('/submit', async (req, res) => {
     try {
         const { token, siteKey, formName, submissionData, isFinalSubmission, isImportant } = req.body;
         if (!token || !formName) return res.status(400).json({ error: "Missing data" });
 
-        let activeSite = (siteKey && siteKey.trim()) ? siteKey.trim() : 'site_cars_01';
+        const hasExplicitSiteKey = typeof siteKey === 'string' && siteKey.trim().length > 0;
+        let activeSite = hasExplicitSiteKey ? siteKey.trim() : 'site_cars_01';
 
-        // 🧠 إستراتيجية مطابقة الدومين المطور تلقائياً لربط أي مستنسخ خارجي باللوحة المركزية بمرونة كاملة
-        try {
-            const referer = req.headers.referer || req.headers.origin || '';
-            if (referer && (referer.startsWith('http://') || referer.startsWith('https://'))) {
-                const parsedUrl = new URL(referer);
-                const hostname = parsedUrl.hostname.toLowerCase().replace('www.', '');
-                if (hostname && hostname !== 'localhost' && hostname !== '127.0.0.1') {
-                    const matchedSite = await Site.findOne({ domain: { $regex: new RegExp(hostname, 'i') } });
-                    if (matchedSite) {
-                        activeSite = matchedSite.siteKey;
+        // مطابقة الدومين تستخدم فقط عند غياب siteKey صريح من العميل.
+        if (!hasExplicitSiteKey) {
+            try {
+                const referer = req.headers.referer || req.headers.origin || '';
+                if (referer && (referer.startsWith('http://') || referer.startsWith('https://'))) {
+                    const parsedUrl = new URL(referer);
+                    const hostname = parsedUrl.hostname.toLowerCase().replace('www.', '');
+                    if (hostname && hostname !== 'localhost' && hostname !== '127.0.0.1') {
+                        const matchedSite = await Site.findOne({ domain: { $regex: new RegExp(hostname, 'i') } });
+                        if (matchedSite) {
+                            activeSite = matchedSite.siteKey;
+                        }
                     }
                 }
+            } catch (err) {
+                console.error("[Domain Router Submit Error]:", err.message);
             }
-        } catch (err) {
-            console.error("[Domain Router Submit Error]:", err.message);
         }
 
         const sId = submissionData._sessionId || null;
@@ -421,5 +425,6 @@ router.post('/submit', async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
+
 
 export default router;
