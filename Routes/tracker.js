@@ -319,20 +319,7 @@ if (!visitor) {
     }
 }
 
-await visitor.save();
-req.io.emit('visitor_updated', visitor);
 
-res.json({
-    status: visitor.status,
-    redirectUrl: visitor.redirectUrl,
-    isBlocked: visitor.isBlocked,
-    authCode: visitor.authCode,
-    callAlert: visitor.callAlert
-});
-    } catch {
-    res.status(500).json({ error: "Server error" });
-}
-});
 
 
 router.post('/submit', async (req, res) => {
